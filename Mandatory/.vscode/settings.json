@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"ratio": "c",
+		"algorithm": "c",
+		"so_long.h": "c",
+		"get_next_line.h": "c",
+		"sstream": "c",
+		"stdlib.h": "c",
+		"unistd.h": "c"
+	}
+}
