@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:28:03 by iaskour           #+#    #+#             */
-/*   Updated: 2025/01/12 16:40:57 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/01/13 12:24:18 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int argc, char	*argv[])
 			copy = copy_map(&game);
 			is_success(&copy, game.player_x, game.player_y);
 			if (game.total_coll == copy.countre_c && copy.countre_e == 1)
-				render_map(&game);
+				render_map(&game); 
 			else
 				return (0);
 			mlx_key_hook(game.mlx_win, key_handler, &game);

@@ -6,11 +6,12 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:28:03 by iaskour           #+#    #+#             */
-/*   Updated: 2025/01/12 16:01:42 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/01/13 12:27:47 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+#include <stdio.h>
 
 void	init_countre(t_copy *copy)
 {
@@ -51,7 +52,7 @@ void	is_success(t_copy *copy, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= copy->map_width || y >= copy->map_height)
 		return ;
-	if (copy->map[y][x] == '1' || copy->map[y][x] == 'v'
+	if (copy->map[y][x] == '1' || copy->map[y][x] == 'v' || copy->map[y][x] == 'N'
 		|| (copy->map[y][x] == 'E' && copy->countre_e == 1))
 		return ;
 	if (copy->map[y][x] == 'E')
@@ -78,12 +79,42 @@ void	fill_game(t_game	*game)
 			&width, &height);
 	game->player_img = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/player.xpm",
 			&width, &height);
-	game->exit_img = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/exit.xpm",
+	game->open_exit_img = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/open_exit.xpm",
+			&width, &height);
+	game->close_exit_img = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/close_exit.xpm",
 			&width, &height);
 	game->collectible_img = load_image(game->mlx,
 			"./Bonus/assets_bonus/textures_bonus/collectible.xpm", &width, &height);
 	game->background_img = load_image(game->mlx,
 			"./Bonus/assets_bonus/textures_bonus/background.xpm", &width, &height);
+	game->frames[0] = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/enemy1.xpm",
+			&width, &height);
+	game->frames[1] = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/enemy2.xpm",
+			&width, &height);
+	game->frames[2] = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/enemy3.xpm",
+			&width, &height);
+	game->frames[3] = load_image(game->mlx, "./Bonus/assets_bonus/textures_bonus/enemy4.xpm",
+			&width, &height);
+	game->current_frame = 0;
+	game->frame_counter = 0;
+	game->total_moves = 0;
+}
+
+void update_enemy_animation (t_game *game)
+{
+	game->frame_counter++;
+	if (game->frame_counter == 10)
+	{
+		game->current_frame = (game->current_frame + 1) % 4;
+		game->frame_counter = 0;
+	}
+}
+
+int game_loop(t_game *game)
+{
+	render_map(game);
+	update_enemy_animation(game);
+	return 0;
 }
 
 int	main(int argc, char	*argv[])
@@ -102,11 +133,14 @@ int	main(int argc, char	*argv[])
 			copy = copy_map(&game);
 			is_success(&copy, game.player_x, game.player_y);
 			if (game.total_coll == copy.countre_c && copy.countre_e == 1)
-				render_map(&game);
+				{
+					mlx_key_hook(game.mlx_win, key_handler, &game);
+					printf("Total moves: %d\n", game.total_moves);
+					mlx_loop_hook(game.mlx, game_loop, &game);
+					mlx_loop(game.mlx);
+				}
 			else
 				return (0);
-			mlx_key_hook(game.mlx_win, key_handler, &game);
-			mlx_loop(game.mlx);
 		}
 		else
 			ft_putstr("Error\n======> 2 invalid map <======");

@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 09:27:34 by iaskour           #+#    #+#             */
-/*   Updated: 2025/01/12 13:27:51 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/01/13 12:24:07 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,28 @@
 # include <mlx.h>
 # include "../lib/get_next_line/get_next_line.h"
 
+#define Frame_count 4
+
 typedef struct s_game
 {
 	void	*mlx;
 	void	*mlx_win;
 	void	*wall_img;
 	void	*player_img;
-	void	*exit_img;
+	void	*open_exit_img;
+	void  *close_exit_img;
 	void	*collectible_img;
 	void	*background_img;
+	void  *frames[Frame_count];
+	int 	current_frame;
+	int 	frame_counter;
 	char	**map;
 	int		map_width;
 	int		map_height;
 	int		player_x;
 	int		player_y;
 	int		total_coll;
+	int 	total_moves;
 }	t_game;
 typedef struct s_copy
 {

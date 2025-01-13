@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 09:02:16 by iaskour           #+#    #+#             */
-/*   Updated: 2025/01/12 13:32:28 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/01/13 09:56:31 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	is_something_inside_map(char *line)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] == 'E' || line[i] == 'C'
+		if (line[i] == 'E' || line[i] == 'C' || line[i] == 'N'
 			|| line[i] == 'P' || line[i] == '0' || line[i] == '1')
 			i++;
 		else

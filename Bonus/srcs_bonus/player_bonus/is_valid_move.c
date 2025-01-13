@@ -6,7 +6,7 @@
 /*   By: iaskour <iaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 08:52:27 by iaskour           #+#    #+#             */
-/*   Updated: 2025/01/12 13:33:09 by iaskour          ###   ########.fr       */
+/*   Updated: 2025/01/13 12:30:03 by iaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void	is_tile_exit(t_game *game, char tile)
 	if (tile == 'O')
 	{
 		ft_putstr("Congratulation you win !!!!!!!!");
+		mlx_destroy_window(game->mlx, game->mlx_win);
+		exit(0);
+	}
+}
+
+void	is_tile_enemy(t_game *game, char tile)
+{
+	if (tile == 'N')
+	{
+		ft_putstr("Game Over : you lose !!!!!!!!");
 		mlx_destroy_window(game->mlx, game->mlx_win);
 		exit(0);
 	}
@@ -49,6 +59,7 @@ void	if_tile_is_col_or_exit(char tile, t_game *game, int new_x, int new_y)
 		}
 	}
 	is_tile_exit(game, tile);
+	is_tile_enemy(game, tile);
 }
 
 int	is_valid_move(t_game *game, int new_x, int new_y)
